@@ -1,14 +1,66 @@
 ﻿using AspProjekat.Application;
+using AspProjekat.Application.UseCases.Commands.Categories;
+using AspProjekat.Application.UseCases.Commands.Customers;
+using AspProjekat.Application.UseCases.Commands.Products;
+using AspProjekat.Application.UseCases.Commands.Suppliers;
+using AspProjekat.Application.UseCases.Queries.Categories;
+using AspProjekat.Application.UseCases.Queries.Customers;
+using AspProjekat.Application.UseCases.Queries.Orders;
+using AspProjekat.Application.UseCases.Queries.Products;
+using AspProjekat.Application.UseCases.Queries.Reviews;
+using AspProjekat.Application.UseCases.Queries.Suppliers;
 using AspProjekat.Implementation;
+using AspProjekat.Implementation.Logging.UseCases;
+using AspProjekat.Implementation.UseCases.Commands.Categories;
+using AspProjekat.Implementation.UseCases.Commands.Customers;
+using AspProjekat.Implementation.UseCases.Commands.Products;
+using AspProjekat.Implementation.UseCases.Commands.Suppliers;
+using AspProjekat.Implementation.UseCases.Queries.Categories;
+using AspProjekat.Implementation.UseCases.Queries.Customers;
+using AspProjekat.Implementation.UseCases.Queries.Orders;
+using AspProjekat.Implementation.UseCases.Queries.Products;
+using AspProjekat.Implementation.UseCases.Queries.Reviews;
+using AspProjekat.Implementation.UseCases.Queries.Suppliers;
+using AspProjekat.Implementation.Validators;
+using AspProjekat.Implementation.Validators.Customers;
+using AspProjekat.Implementation.Validators.Products;
+using AspProjekat.Implementation.Validators.Suppliers;
 using System.IdentityModel.Tokens.Jwt;
 
 namespace AspProjekat.API.Core
 {
-	public static class ContainerExtensions
+    public static class ContainerExtensions
 	{
 		public static void AddUseCases(this IServiceCollection services)
 		{
+			//valdators
+			services.AddTransient<LoginRequestDtoValidator>();
+			services.AddTransient<CreateCategoryDtoValidator>();
+			services.AddTransient<CreateProductDtoValidator>();
+			services.AddTransient<CreateSupplierDtoValidator>();
+			services.AddTransient<RegisterCustomerDtoValidator>();
+			services.AddTransient<UpdateProductDtoValidator>();
+
+			//commands
+			services.AddTransient<ICreateCategoryCommand, EFCreateCategoryCommand>();
+			services.AddTransient<ICreateProductCommand, EFCreateProductCommand>();
+			services.AddTransient<ICreateSupplierCommand, EFCreateSupplierCommand>();
+			services.AddTransient<IRegisterCustomerCommand, EfRegisterCustomerCommand>();
+			services.AddTransient<IUpdateProductCommand, EFUpdateProductCommand>();
+
+			//queries
+			services.AddTransient<IGetCategoriesQuery, EFGetCategoriesQuery>();
+			services.AddTransient<IGetProductsQuery, EFGetProductsQuery>();
+			services.AddTransient<IGetSuppliersQuery, EFGetSuppliersQuery>();
+			services.AddTransient<IGetCustomersQuery, EFGetCustomersQuery>();
+			services.AddTransient<IGetReviewsQuery, EfGetReviewsQuery>();
+			services.AddTransient<IGetOrdersQuery, EfGetOrdersQuery>();
+
+
+			//other
 			services.AddTransient<UseCaseHandler>();
+			services.AddTransient<IUseCaseLogger, SPUseCaseLogger>();
+
 
 		}
 

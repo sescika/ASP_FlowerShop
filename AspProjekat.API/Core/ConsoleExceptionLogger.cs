@@ -18,9 +18,9 @@ namespace AspProjekat.API.Core
 	{
 		private readonly FlowershopContext _context;
 
-		public DbExceptionLogger(FlowershopContext aspContext)
+		public DbExceptionLogger(FlowershopContext ctx)
 		{
-			_context = aspContext;
+			_context = ctx;
 		}
 
 		public Guid Log(Exception ex, IApplicationActor actor)

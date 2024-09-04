@@ -118,6 +118,41 @@ namespace AspProjekat.DataAccess.Migrations
                     b.ToTable("Customers");
                 });
 
+            modelBuilder.Entity("AspProjekat.Domain.CustomerFile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<string>("Source")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("CustomerFiles");
+                });
+
             modelBuilder.Entity("AspProjekat.Domain.CustomerUseCase", b =>
                 {
                     b.Property<int>("CustomerId")
@@ -530,6 +565,17 @@ namespace AspProjekat.DataAccess.Migrations
                     b.ToTable("CategoryProduct");
                 });
 
+            modelBuilder.Entity("AspProjekat.Domain.CustomerFile", b =>
+                {
+                    b.HasOne("AspProjekat.Domain.Customer", "Customer")
+                        .WithMany("Files")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
             modelBuilder.Entity("AspProjekat.Domain.CustomerUseCase", b =>
                 {
                     b.HasOne("AspProjekat.Domain.Customer", "User")
@@ -640,6 +686,8 @@ namespace AspProjekat.DataAccess.Migrations
 
             modelBuilder.Entity("AspProjekat.Domain.Customer", b =>
                 {
+                    b.Navigation("Files");
+
                     b.Navigation("Orders");
 
                     b.Navigation("Reviews");

@@ -55,10 +55,10 @@ namespace AspProjekat.Implementation
 
 			return new Actor
 			{
-				Email = u.Email,
-				FirstName = u.Name,
+				//Email = u.Email,
+				//FirstName = u.Name,
 				Id = u.Id,
-				LastName = u.LastName,
+				//LastName = u.LastName,
 				Username = u.Username,
 				AllowedUseCases = useCases
 			};

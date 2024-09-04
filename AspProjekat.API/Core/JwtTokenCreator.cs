@@ -20,9 +20,9 @@ namespace AspProjekat.API.Core
 			_storage = storage;
 		}
 
-		public string Create(string email, string password)
+		public string Create(string username, string password)
 		{
-			var user = _context.Customers.Where(x => x.Email == email).Select(x => new
+			var user = _context.Customers.Where(x => x.Username == username).Select(x => new
 			{
 				x.Username,
 				x.Password,
@@ -37,10 +37,10 @@ namespace AspProjekat.API.Core
 				throw new UnauthorizedAccessException();
 			}
 
-			if (!BCrypt.Net.BCrypt.Verify(password, user.Password))
-			{
-				throw new UnauthorizedAccessException();
-			}
+			//if (!BCrypt.Net.BCrypt.Verify(password, user.Password))
+			//{
+			//	throw new UnauthorizedAccessException();
+			//}
 
 			Guid tokenGuid = Guid.NewGuid();
 

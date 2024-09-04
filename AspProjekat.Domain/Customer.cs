@@ -18,5 +18,6 @@ namespace AspProjekat.Domain
         public virtual ICollection<Order> Orders { get; set; } = new HashSet<Order>();
         public virtual ICollection<Review> Reviews { get; set; } = new HashSet<Review>();
 		public virtual ICollection<CustomerUseCase> UseCases { get; set; } = new HashSet<CustomerUseCase>();
+        public virtual ICollection<CustomerFile> Files { get; set; } = new HashSet<CustomerFile>();
 	}
 }

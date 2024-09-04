@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <Folder Include="Validation\" />
+    <Folder Include="wwwroot\files\" />
   </ItemGroup>
 
 </Project>

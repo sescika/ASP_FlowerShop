@@ -82,7 +82,7 @@ namespace AspProjekat.DataAccess
 		public DbSet<UseCaseLog> UseCaseLogs { get; set; }
 		public DbSet<CustomerUseCase> CustomerUseCases { get; set; }
 		public DbSet<ErrorLog> ErrorLogs { get; set; }
-
+		public DbSet<CustomerFile> CustomerFiles { get; set; }
 	}
 	
 }

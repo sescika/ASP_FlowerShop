@@ -14,10 +14,10 @@ namespace AspProjekat.Implementation
 			return new Actor
 			{
 				Username = "test",
-				Email = "test",
+				//Email = "test",
 				Id = 0,
-				FirstName = "Test",
-				LastName = "Test"
+				//FirstName = "Test",
+				//LastName = "Test",
 			};
 		}
 	}

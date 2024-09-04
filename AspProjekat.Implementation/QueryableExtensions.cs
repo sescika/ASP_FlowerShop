@@ -22,7 +22,6 @@ namespace AspProjekat.Implementation
 			int perPage = search.PerPage.HasValue ? (int)Math.Abs((double)search.PerPage) : 10;
 			int page = search.Page.HasValue ? (int)Math.Abs((double)search.Page) : 1;
 
-			//16 PerPage = 5, Page = 2
 
 			int skip = perPage * (page - 1);
 
@@ -48,7 +47,6 @@ namespace AspProjekat.Implementation
 			int perPage = search.PerPage.HasValue ? (int)Math.Abs((double)search.PerPage) : 10;
 			int page = search.Page.HasValue ? (int)Math.Abs((double)search.Page) : 1;
 
-			//16 PerPage = 5, Page = 2
 
 			int skip = perPage * (page - 1);
 
@@ -59,7 +57,7 @@ namespace AspProjekat.Implementation
 				CurrentPage = page,
 				Data = mapper.ProjectTo<TResult>(query).ToList(),
 				PerPage = perPage,
-				TotalCount = totalCount,
+				TotalCount = totalCount,	
 			};
 		}
 	}

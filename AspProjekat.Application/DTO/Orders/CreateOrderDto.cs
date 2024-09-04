@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace AspProjekat.Domain
+namespace AspProjekat.Application.DTO.Orders
 {
-	public class Cart
+	internal class CreateOrderDto
 	{
-
 	}
 }

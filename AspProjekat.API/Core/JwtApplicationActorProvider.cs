@@ -19,7 +19,7 @@ namespace AspProjekat.API.Core
 			if (authorizationHeader.Split("Bearer ").Length != 2)
 			{
 				return new UnauthorizedActor();
-			}
+			}	
 
 			string token = authorizationHeader.Split("Bearer ")[1];
 
@@ -33,10 +33,7 @@ namespace AspProjekat.API.Core
 
 			var actor = new Actor
 			{
-				Email = claims.First(x => x.Type == "Username").Value,
 				Username = claims.First(x => x.Type == "Username").Value,
-				FirstName = claims.First(x => x.Type == "FirstName").Value,
-				LastName = claims.First(x => x.Type == "LastName").Value,
 				Id = int.Parse(claims.First(x => x.Type == "Id").Value),
 				AllowedUseCases = JsonConvert.DeserializeObject<List<int>>(claims.First(x => x.Type == "UseCaseIds").Value)
 			};

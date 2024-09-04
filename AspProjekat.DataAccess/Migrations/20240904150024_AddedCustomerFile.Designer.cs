@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AspProjekat.DataAccess.Migrations
 {
     [DbContext(typeof(FlowershopContext))]
-    [Migration("20240618125352_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240904150024_AddedCustomerFile")]
+    partial class AddedCustomerFile
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -119,6 +119,41 @@ namespace AspProjekat.DataAccess.Migrations
                     b.HasIndex("Name", "LastName", "Email", "Username");
 
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("AspProjekat.Domain.CustomerFile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<string>("Source")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("CustomerFile");
                 });
 
             modelBuilder.Entity("AspProjekat.Domain.CustomerUseCase", b =>
@@ -533,6 +568,17 @@ namespace AspProjekat.DataAccess.Migrations
                     b.ToTable("CategoryProduct");
                 });
 
+            modelBuilder.Entity("AspProjekat.Domain.CustomerFile", b =>
+                {
+                    b.HasOne("AspProjekat.Domain.Customer", "Customer")
+                        .WithMany("Files")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
             modelBuilder.Entity("AspProjekat.Domain.CustomerUseCase", b =>
                 {
                     b.HasOne("AspProjekat.Domain.Customer", "User")
@@ -643,6 +689,8 @@ namespace AspProjekat.DataAccess.Migrations
 
             modelBuilder.Entity("AspProjekat.Domain.Customer", b =>
                 {
+                    b.Navigation("Files");
+
                     b.Navigation("Orders");
 
                     b.Navigation("Reviews");

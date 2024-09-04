@@ -6,7 +6,7 @@ namespace AspProjekat.Application
 {
 	public interface IUseCaseLogger
 	{
-		void Log(UseCaseLog message);
+		//void Log(UseCaseLog message);
 	}
 
 	public class UseCaseLog
@@ -14,5 +14,10 @@ namespace AspProjekat.Application
 		public string Username { get; set; }
 		public string UseCaseName { get; set; }
 		public object UseCaseData { get; set; }
+
+		//public static implicit operator UseCaseLog(UseCaseLog v)
+		//{
+		//	throw new NotImplementedException();
+		//}
 	}
 }
