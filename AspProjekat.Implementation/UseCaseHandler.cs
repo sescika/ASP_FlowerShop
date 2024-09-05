@@ -14,7 +14,7 @@ namespace AspProjekat.Implementation
 		private readonly IApplicationActor _actor;
 		private readonly IUseCaseLogger _logger;
 
-		private static List<int> GloballyAllowed => new List<int> { 14 };
+		private static List<int> GloballyAllowed => new List<int> { 1, 3, 5, 7, 9, 10};
 
 		public UseCaseHandler(IApplicationActor actor, IUseCaseLogger logger)
 		{
