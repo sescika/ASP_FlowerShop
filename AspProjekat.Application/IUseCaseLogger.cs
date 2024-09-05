@@ -6,7 +6,7 @@ namespace AspProjekat.Application
 {
 	public interface IUseCaseLogger
 	{
-		//void Log(UseCaseLog message);
+		void Log(UseCaseLog message);
 	}
 
 	public class UseCaseLog

@@ -4,6 +4,7 @@ using AspProjekat.Application;
 using AspProjekat.Application.UseCases.Queries.Categories;
 using AspProjekat.DataAccess;
 using AspProjekat.Implementation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +22,7 @@ namespace AspProjekat.API.Controllers
 			_useCaseHandler = useCaseHandler;
 		}
 
+		[Authorize]
 		[HttpPost]
 		public IActionResult Post([FromForm] FileUploadDto dto, IApplicationActor a)
 		{

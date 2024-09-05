@@ -5,6 +5,7 @@ using AspProjekat.DataAccess;
 using AspProjekat.Domain;
 using AspProjekat.Implementation.Validators.Products;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -29,17 +30,15 @@ namespace AspProjekat.Implementation.UseCases.Commands.Products
 		public void Execute(UpdateProductDto data)
 		{
 			_validator.ValidateAndThrow(data);
-
-			var product = Context.Products.Find(data.Id);
+				
+			var product = Context.Products.Include(x => x.Inventory).FirstOrDefault(p => p.Id == data.Id);
            
 			if(product != null)
 			{
 				product.Name = string.IsNullOrEmpty(data.Name) ? data.Name : product.Description;
 				product.Description = string.IsNullOrEmpty(data.Description) ? data.Description : product.Description;
-				product.Price = (double)data.Price;
 				product.ImageUrl = string.IsNullOrEmpty(data.ImageUrl) ? data.ImageUrl : product.Description;
-				product.Id = data.Id.HasValue? data.Id.Value : product.Id;
-				product.Inventory.QuantityAvailable = data.QuantityAvailable.HasValue ? data.QuantityAvailable.Value : product.Inventory.QuantityAvailable;
+				product.Inventory.QuantityAvailable = data.QuantityAvailable.HasValue ?  data.QuantityAvailable.Value : product.Inventory.QuantityAvailable;
 				Context.SaveChanges();
 			}
 		}

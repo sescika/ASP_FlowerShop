@@ -14,7 +14,7 @@ namespace AspProjekat.Implementation
 		private readonly IApplicationActor _actor;
 		private readonly IUseCaseLogger _logger;
 
-		private static List<int> GloballyAllowed => new List<int> { 1,2,3,4 };
+		private static List<int> GloballyAllowed => new List<int> { 14 };
 
 		public UseCaseHandler(IApplicationActor actor, IUseCaseLogger logger)
 		{
@@ -24,7 +24,7 @@ namespace AspProjekat.Implementation
 
 		public void HandleCommand<TData>(ICommand<TData> command, TData data)
 		{
-			//HandleCrossCuttingConcerns(command, data);
+			HandleCrossCuttingConcerns(command, data);
 
 			Stopwatch stopwatch = new Stopwatch();
 			stopwatch.Start();
@@ -39,7 +39,7 @@ namespace AspProjekat.Implementation
 			where TResult : class
 
 		{
-			//HandleCrossCuttingConcerns(query, search);
+			HandleCrossCuttingConcerns(query, search);
 			Stopwatch stopwatch = new Stopwatch();
 			stopwatch.Start();
 
@@ -68,7 +68,7 @@ namespace AspProjekat.Implementation
 				Username = _actor.Username,
 			};
 
-			//_logger.Log(log);
+			_logger.Log(log);
 		}
 	}
 }

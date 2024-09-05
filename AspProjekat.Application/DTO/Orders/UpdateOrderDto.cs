@@ -4,13 +4,11 @@ using System.Text;
 
 namespace AspProjekat.Application.DTO.Orders
 {
-	public class CreateOrderDto
+	public class UpdateOrderDto
 	{
-		public int CustomerId { get; set; }
         public string Status { get; set; }
-        public double TotalAmount { get; set; }
         public string PaymentMethod { get; set; }
-
-        public DeliveryDetailsDto DeliveryDetails { get; set; }
-	}
+        public int Quantity { get; set; }
+        public string DeliveryStatus { get; set; }
+    }
 }

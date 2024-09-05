@@ -24,7 +24,7 @@ namespace AspProjekat.API.Controllers
 		}
 
 		//GET 
-		//[Authorize]
+		[Authorize]
 		[HttpGet]
 		public IActionResult Get([FromQuery] CategorySearch search, [FromServices] IGetCategoriesQuery query)
 		{
@@ -32,7 +32,7 @@ namespace AspProjekat.API.Controllers
 		}
 
 		//POST 
-		//[Authorize]
+		[Authorize]
 		[HttpPost]
 		public IActionResult Post([FromServices] ICreateCategoryCommand command, [FromBody] CreateCategoryDto data)
 		{
@@ -48,24 +48,23 @@ namespace AspProjekat.API.Controllers
 				return StatusCode(500);
 			}
 		}
-		//[Authorize]
+		[Authorize]
 		[HttpDelete("{id}")]
-		public IActionResult Delete(int id)
+		public IActionResult Delete(int id, [FromServices] IDeleteCategoryCommand command)
 		{
-			Category cat = _ctx.Categories.Find(id);
-			if(cat == null)
+			try
 			{
-				return NotFound();
+				_useCaseHandler.HandleCommand(command, id);
+				return StatusCode(201);
 			}
-
-			if(cat.Products.Any())
+			catch (ValidationException ex)
 			{
-				return Conflict(new { error = "At least one product has this category." });
+				return UnprocessableEntity(ex.Errors);
 			}
-
-			_ctx.Categories.Remove(cat);
-			_ctx.SaveChanges();
-			return NoContent(); 
+			catch (Exception e)
+			{
+				return StatusCode(500);
+			}
 		}
 	}
 }

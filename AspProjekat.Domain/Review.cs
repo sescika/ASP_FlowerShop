@@ -14,4 +14,4 @@ namespace AspProjekat.Domain
         public virtual Product Product { get; set; }
         public virtual Customer Customer { get; set; }
     }
-}
+}   

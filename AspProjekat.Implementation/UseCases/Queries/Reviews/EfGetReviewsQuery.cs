@@ -20,7 +20,7 @@ namespace AspProjekat.Implementation.UseCases.Queries.Reviews
 		}
 		public int Id => 9;
 
-		public string Name => "Get Reviews";
+		public string Name => "Get All Reviews";
 
 		public PagedResponse<ReviewDto> Execute(ReviewSearch search)
 		{

@@ -11,5 +11,7 @@ namespace AspProjekat.Domain
 		public string Username { get; set; }
 		public string UseCaseData { get; set; }
 		public DateTime ExecutedAt { get; set; }
+
+		public virtual UseCase UseCase { get; set; }
 	}
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace AspProjekat.Application.UseCases.Commands.Orders
 {
-	public interface ICreateOrderCommand : ICommand<CreateOrderDto>
+	public interface IUpdateOrderCommand : ICommand<UpdateOrderDto>
 	{
 	}
 }

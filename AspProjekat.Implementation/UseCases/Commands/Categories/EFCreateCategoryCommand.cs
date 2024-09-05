@@ -22,7 +22,7 @@ namespace AspProjekat.Implementation.UseCases.Commands.Categories
 		}
 
 		public int Id => 2;
-		public string Name => "Create category";
+		public string Name => "Create Category";
 
 		public void Execute(CreateCategoryDto data)
 		{

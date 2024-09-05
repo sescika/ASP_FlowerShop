@@ -65,7 +65,6 @@ namespace AspProjekat.Implementation.UseCases.Queries.Orders
 					OrderItems = x.OrderItems.Select(y => new OrderItemDto
 					{
 						ProductId = y.ProductId,
-						Price = (decimal)y.Price,
 						ProductQuantity	= y.Quantity
 					}),
 				}).ToList(),

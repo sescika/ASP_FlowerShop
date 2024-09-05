@@ -5,6 +5,7 @@ using AspProjekat.DataAccess;
 using AspProjekat.Domain;
 using AspProjekat.Implementation;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,7 +23,7 @@ namespace AspProjekat.API.Controllers
 			_ctx = ctx;
 		}
 		//GET
-		//[Authorize]
+		[Authorize]
 		[HttpGet]
         public IActionResult Get([FromQuery] SupplierSearch search, [FromServices] IGetSuppliersQuery query)
         {
@@ -30,7 +31,7 @@ namespace AspProjekat.API.Controllers
         }
 
         //POST
-		//[Authorize]
+		[Authorize]
         [HttpPost]
         public IActionResult Post([FromBody] CreateSupplierDto data, [FromServices] ICreateSupplierCommand command)
         {
@@ -49,7 +50,7 @@ namespace AspProjekat.API.Controllers
 			}
 		}
 		//DELETE
-		//[Authorize]
+		[Authorize]
 		[HttpDelete("{id}")]
 		public IActionResult Delete(int id)
 		{

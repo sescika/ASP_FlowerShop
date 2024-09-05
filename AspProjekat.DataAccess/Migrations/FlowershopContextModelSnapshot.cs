@@ -153,19 +153,6 @@ namespace AspProjekat.DataAccess.Migrations
                     b.ToTable("CustomerFiles");
                 });
 
-            modelBuilder.Entity("AspProjekat.Domain.CustomerUseCase", b =>
-                {
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UseCaseId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CustomerId", "UseCaseId");
-
-                    b.ToTable("CustomerUseCases");
-                });
-
             modelBuilder.Entity("AspProjekat.Domain.DeliveryDetails", b =>
                 {
                     b.Property<int>("Id")
@@ -312,7 +299,7 @@ namespace AspProjekat.DataAccess.Migrations
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(max)")
-                        .HasDefaultValue("credit_card");
+                        .HasDefaultValue("mastercard");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -350,9 +337,6 @@ namespace AspProjekat.DataAccess.Migrations
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -517,6 +501,32 @@ namespace AspProjekat.DataAccess.Migrations
                     b.ToTable("Suppliers");
                 });
 
+            modelBuilder.Entity("AspProjekat.Domain.UseCase", b =>
+                {
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("GETDATE()");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Name");
+
+                    b.ToTable("UseCases");
+                });
+
             modelBuilder.Entity("AspProjekat.Domain.UseCaseLog", b =>
                 {
                     b.Property<int>("Id")
@@ -533,8 +543,7 @@ namespace AspProjekat.DataAccess.Migrations
 
                     b.Property<string>("UseCaseName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -542,6 +551,8 @@ namespace AspProjekat.DataAccess.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UseCaseName");
 
                     b.HasIndex("Username", "UseCaseName", "ExecutedAt");
 
@@ -565,6 +576,21 @@ namespace AspProjekat.DataAccess.Migrations
                     b.ToTable("CategoryProduct");
                 });
 
+            modelBuilder.Entity("CustomerUseCase", b =>
+                {
+                    b.Property<int>("CustomersId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UseCasesName")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("CustomersId", "UseCasesName");
+
+                    b.HasIndex("UseCasesName");
+
+                    b.ToTable("CustomerUseCase");
+                });
+
             modelBuilder.Entity("AspProjekat.Domain.CustomerFile", b =>
                 {
                     b.HasOne("AspProjekat.Domain.Customer", "Customer")
@@ -576,23 +602,12 @@ namespace AspProjekat.DataAccess.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("AspProjekat.Domain.CustomerUseCase", b =>
-                {
-                    b.HasOne("AspProjekat.Domain.Customer", "User")
-                        .WithMany("UseCases")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("AspProjekat.Domain.DeliveryDetails", b =>
                 {
                     b.HasOne("AspProjekat.Domain.Order", "Order")
                         .WithOne("DeliveryDetails")
                         .HasForeignKey("AspProjekat.Domain.DeliveryDetails", "OrderId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Order");
@@ -603,7 +618,7 @@ namespace AspProjekat.DataAccess.Migrations
                     b.HasOne("AspProjekat.Domain.Product", "Product")
                         .WithOne("Inventory")
                         .HasForeignKey("AspProjekat.Domain.Inventory", "ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Product");
@@ -625,13 +640,13 @@ namespace AspProjekat.DataAccess.Migrations
                     b.HasOne("AspProjekat.Domain.Order", "Order")
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("AspProjekat.Domain.Product", "Product")
                         .WithMany("OrderItems")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Order");
@@ -644,7 +659,7 @@ namespace AspProjekat.DataAccess.Migrations
                     b.HasOne("AspProjekat.Domain.Supplier", "Supplier")
                         .WithOne("Product")
                         .HasForeignKey("AspProjekat.Domain.Product", "SupplierId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Supplier");
@@ -661,12 +676,23 @@ namespace AspProjekat.DataAccess.Migrations
                     b.HasOne("AspProjekat.Domain.Product", "Product")
                         .WithMany("Reviews")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Customer");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("AspProjekat.Domain.UseCaseLog", b =>
+                {
+                    b.HasOne("AspProjekat.Domain.UseCase", "UseCase")
+                        .WithMany("UseCaseLogs")
+                        .HasForeignKey("UseCaseName")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("UseCase");
                 });
 
             modelBuilder.Entity("CategoryProduct", b =>
@@ -684,6 +710,21 @@ namespace AspProjekat.DataAccess.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("CustomerUseCase", b =>
+                {
+                    b.HasOne("AspProjekat.Domain.Customer", null)
+                        .WithMany()
+                        .HasForeignKey("CustomersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AspProjekat.Domain.UseCase", null)
+                        .WithMany()
+                        .HasForeignKey("UseCasesName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("AspProjekat.Domain.Customer", b =>
                 {
                     b.Navigation("Files");
@@ -691,8 +732,6 @@ namespace AspProjekat.DataAccess.Migrations
                     b.Navigation("Orders");
 
                     b.Navigation("Reviews");
-
-                    b.Navigation("UseCases");
                 });
 
             modelBuilder.Entity("AspProjekat.Domain.Order", b =>
@@ -714,6 +753,11 @@ namespace AspProjekat.DataAccess.Migrations
             modelBuilder.Entity("AspProjekat.Domain.Supplier", b =>
                 {
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("AspProjekat.Domain.UseCase", b =>
+                {
+                    b.Navigation("UseCaseLogs");
                 });
 #pragma warning restore 612, 618
         }

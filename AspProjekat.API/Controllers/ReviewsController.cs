@@ -2,6 +2,7 @@
 using AspProjekat.Application.UseCases.Queries.Reviews;
 using AspProjekat.DataAccess;
 using AspProjekat.Implementation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +19,7 @@ namespace AspProjekat.API.Controllers
 			_ctx = ctx;
 			_useCaseHandler = useCaseHandler;
 		}
+		[Authorize]
 		[HttpGet]
 		public IActionResult Get([FromQuery] ReviewSearch search, [FromServices] IGetReviewsQuery query)
 		{

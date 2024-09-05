@@ -5,6 +5,7 @@ using AspProjekat.DataAccess;
 using AspProjekat.Domain;
 using AspProjekat.Implementation;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +24,7 @@ namespace AspProjekat.API.Controllers
 			_ctx = ctx;
 		}
 		//GET
-		//[Authorize]
+		[Authorize]
 		[HttpGet]
 		public IActionResult Get([FromQuery] ProductSearch search, [FromServices] IGetProductsQuery query)
 		{
@@ -31,7 +32,7 @@ namespace AspProjekat.API.Controllers
 		}
 
 		//POST
-		//[Authorize]
+		[Authorize]
 		[HttpPost]
 		public IActionResult Post([FromBody] CreateProductDto data, [FromServices] ICreateProductCommand command)
 		{
@@ -50,7 +51,7 @@ namespace AspProjekat.API.Controllers
 				return StatusCode(500);
 			}
 		}
-		//[Authorize]
+		[Authorize]
 		[HttpDelete("{id}")]
 		public IActionResult Delete(int id)
 		{
@@ -65,7 +66,7 @@ namespace AspProjekat.API.Controllers
 			_ctx.SaveChanges();
 			return NoContent();
 		}
-		//[Authorize]
+		[Authorize]
 		[HttpPut]
 		public IActionResult Put([FromBody] UpdateProductDto data, [FromServices] IUpdateProductCommand command)
 		{

@@ -34,11 +34,6 @@ namespace AspProjekat.DataAccess
 		{
 			modelBuilder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
 
-			modelBuilder.Entity<CustomerUseCase>().HasKey(x => new
-			{
-				x.CustomerId,
-				x.UseCaseId
-			});
 
 			base.OnModelCreating(modelBuilder);	
 		}
@@ -80,9 +75,9 @@ namespace AspProjekat.DataAccess
 		public DbSet<Inventory> Inventory { get; set; }
 		public DbSet<DeliveryDetails> DeliveryDetails { get; set; }
 		public DbSet<UseCaseLog> UseCaseLogs { get; set; }
-		public DbSet<CustomerUseCase> CustomerUseCases { get; set; }
 		public DbSet<ErrorLog> ErrorLogs { get; set; }
 		public DbSet<CustomerFile> CustomerFiles { get; set; }
+		public DbSet<UseCase> UseCases { get; set; }	
 	}
 	
 }

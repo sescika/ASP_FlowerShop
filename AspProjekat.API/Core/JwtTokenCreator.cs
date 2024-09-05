@@ -29,7 +29,7 @@ namespace AspProjekat.API.Core
 				x.Name,
 				x.LastName,
 				x.Id,
-				UseCaseIds = x.UseCases.Select(x => x.UseCaseId)
+				UseCaseIds = x.UseCases.Select(x => x.Id)
 			}).FirstOrDefault();
 
 			if (user == null)
@@ -37,10 +37,10 @@ namespace AspProjekat.API.Core
 				throw new UnauthorizedAccessException();
 			}
 
-			//if (!BCrypt.Net.BCrypt.Verify(password, user.Password))
-			//{
-			//	throw new UnauthorizedAccessException();
-			//}
+			if (!BCrypt.Net.BCrypt.Verify(password, user.Password))
+			{
+				throw new UnauthorizedAccessException();
+			}
 
 			Guid tokenGuid = Guid.NewGuid();
 

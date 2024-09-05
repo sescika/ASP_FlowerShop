@@ -5,6 +5,7 @@ using AspProjekat.Application.UseCases.Commands.Products;
 using AspProjekat.Application.UseCases.Commands.Suppliers;
 using AspProjekat.Application.UseCases.Queries.Categories;
 using AspProjekat.Application.UseCases.Queries.Customers;
+using AspProjekat.Application.UseCases.Queries.Logs;
 using AspProjekat.Application.UseCases.Queries.Orders;
 using AspProjekat.Application.UseCases.Queries.Products;
 using AspProjekat.Application.UseCases.Queries.Reviews;
@@ -17,12 +18,14 @@ using AspProjekat.Implementation.UseCases.Commands.Products;
 using AspProjekat.Implementation.UseCases.Commands.Suppliers;
 using AspProjekat.Implementation.UseCases.Queries.Categories;
 using AspProjekat.Implementation.UseCases.Queries.Customers;
+using AspProjekat.Implementation.UseCases.Queries.Logs;
 using AspProjekat.Implementation.UseCases.Queries.Orders;
 using AspProjekat.Implementation.UseCases.Queries.Products;
 using AspProjekat.Implementation.UseCases.Queries.Reviews;
 using AspProjekat.Implementation.UseCases.Queries.Suppliers;
 using AspProjekat.Implementation.Validators;
 using AspProjekat.Implementation.Validators.Customers;
+using AspProjekat.Implementation.Validators.Logs;
 using AspProjekat.Implementation.Validators.Products;
 using AspProjekat.Implementation.Validators.Suppliers;
 using System.IdentityModel.Tokens.Jwt;
@@ -40,6 +43,7 @@ namespace AspProjekat.API.Core
 			services.AddTransient<CreateSupplierDtoValidator>();
 			services.AddTransient<RegisterCustomerDtoValidator>();
 			services.AddTransient<UpdateProductDtoValidator>();
+			services.AddTransient<LogSearchValidator>();
 
 			//commands
 			services.AddTransient<ICreateCategoryCommand, EFCreateCategoryCommand>();
@@ -47,6 +51,7 @@ namespace AspProjekat.API.Core
 			services.AddTransient<ICreateSupplierCommand, EFCreateSupplierCommand>();
 			services.AddTransient<IRegisterCustomerCommand, EfRegisterCustomerCommand>();
 			services.AddTransient<IUpdateProductCommand, EFUpdateProductCommand>();
+			services.AddTransient<IDeleteCategoryCommand, EFDeleteCateogryCommand>();
 
 			//queries
 			services.AddTransient<IGetCategoriesQuery, EFGetCategoriesQuery>();
@@ -55,12 +60,11 @@ namespace AspProjekat.API.Core
 			services.AddTransient<IGetCustomersQuery, EFGetCustomersQuery>();
 			services.AddTransient<IGetReviewsQuery, EfGetReviewsQuery>();
 			services.AddTransient<IGetOrdersQuery, EfGetOrdersQuery>();
-
+			services.AddTransient<IGetLogQuery, EFGetLogQuery>();
 
 			//other
 			services.AddTransient<UseCaseHandler>();
 			services.AddTransient<IUseCaseLogger, SPUseCaseLogger>();
-
 
 		}
 

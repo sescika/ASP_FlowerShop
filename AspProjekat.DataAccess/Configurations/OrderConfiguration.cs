@@ -15,9 +15,9 @@ namespace AspProjekat.DataAccess.Configurations
 		{
 			builder.Property(x => x.Status).IsRequired().HasDefaultValue("pending").HasMaxLength(10);
 			builder.Property(x => x.TotalAmount).IsRequired();
-			builder.Property(x => x.PaymentMethod).IsRequired().HasDefaultValue("credit_card");
+			builder.Property(x => x.PaymentMethod).IsRequired().HasDefaultValue("mastercard");
 
-			builder.HasMany(x => x.OrderItems).WithOne(x => x.Order).HasForeignKey(x => x.OrderId).OnDelete(DeleteBehavior.Restrict);
+			builder.HasMany(x => x.OrderItems).WithOne(x => x.Order).HasForeignKey(x => x.OrderId).OnDelete(DeleteBehavior.Cascade);
 
 		}
 	}

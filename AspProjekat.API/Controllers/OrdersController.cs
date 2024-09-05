@@ -6,6 +6,7 @@ using AspProjekat.Application.UseCases.Queries.Orders;
 using AspProjekat.DataAccess;
 using AspProjekat.Implementation;
 using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,7 +25,7 @@ namespace AspProjekat.API.Controllers
 		}
 
 		//GET 
-		//[Authorize]
+		[Authorize]
 		[HttpGet]
 		public IActionResult Get([FromQuery] OrderSearch search, [FromServices] IGetOrdersQuery query)
 		{

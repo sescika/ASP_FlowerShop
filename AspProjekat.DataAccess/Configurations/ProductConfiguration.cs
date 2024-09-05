@@ -17,11 +17,11 @@ namespace AspProjekat.DataAccess.Configurations
 			builder.Property(x => x.Price).IsRequired();
 			builder.Property(x => x.ImageUrl).IsRequired().HasMaxLength(255);
 
-			builder.HasOne(x => x.Supplier).WithOne(x => x.Product).OnDelete(DeleteBehavior.Restrict);
-			builder.HasMany(x => x.Reviews).WithOne(x => x.Product).OnDelete(DeleteBehavior.Restrict);
+			builder.HasOne(x => x.Supplier).WithOne(x => x.Product).OnDelete(DeleteBehavior.Cascade);
+			builder.HasMany(x => x.Reviews).WithOne(x => x.Product).OnDelete(DeleteBehavior.Cascade);
 			builder.HasMany(x => x.Categories).WithMany(x => x.Products);
-			builder.HasOne(x => x.Inventory).WithOne(x => x.Product).OnDelete(DeleteBehavior.Restrict);
-			builder.HasMany(x => x.OrderItems).WithOne(x => x.Product).OnDelete(DeleteBehavior.Restrict);
+			builder.HasOne(x => x.Inventory).WithOne(x => x.Product).OnDelete(DeleteBehavior.Cascade);
+			builder.HasMany(x => x.OrderItems).WithOne(x => x.Product).OnDelete(DeleteBehavior.Cascade);
 		}
 	}
 }

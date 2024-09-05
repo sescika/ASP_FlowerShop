@@ -51,7 +51,7 @@ namespace AspProjekat.Implementation
 				return new UnauthorizedActor();
 			}
 
-			var useCases = u.UseCases.Select(x => x.UseCaseId).ToList();
+			var useCases = u.UseCases.Select(x => x.Id).ToList();
 
 			return new Actor
 			{

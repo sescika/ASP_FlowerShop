@@ -18,7 +18,6 @@ namespace AspProjekat.Implementation.Validators.Products
 			_ctx = ctx;
 			RuleFor(x => x.Id).Must(y => _ctx.Products.Any(p => p.Id == y)).WithMessage($"Product with that id doens't exist.");
 			RuleFor(x => x.Name).NotEmpty().WithMessage("Name is required.").MinimumLength(3).WithMessage("Name must be at least 3 characters long.");
-			RuleFor(x => x.Price).NotEmpty().WithMessage("Price is required.").GreaterThan(0).WithMessage("Price must be greater than 0.");
 			RuleFor(x => x.QuantityAvailable).NotEmpty().WithMessage("Quantity is required.").GreaterThan(0).WithMessage("Quanitity must be greater than 0.");
 		}
 	}

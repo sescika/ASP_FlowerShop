@@ -14,10 +14,11 @@ namespace AspProjekat.DataAccess.Configurations
 		public void Configure(EntityTypeBuilder<UseCaseLog> builder)
 		{
 			builder.Property(x => x.Username).IsRequired().HasMaxLength(20);
-			builder.Property(x => x.UseCaseName).IsRequired().HasMaxLength(50);
+			builder.Property(x => x.UseCaseName).IsRequired();
 
 			builder.HasIndex(x => new { x.Username, x.UseCaseName, x.ExecutedAt })
 				   .IncludeProperties(x => x.UseCaseData);
+			builder.HasOne(x => x.UseCase).WithMany(x => x.UseCaseLogs).HasForeignKey(x => x.UseCaseName).OnDelete(DeleteBehavior.Restrict);
 		}
 	}
 }

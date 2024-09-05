@@ -21,9 +21,16 @@ namespace AspProjekat.Implementation.Logging.UseCases
 
 		public void Log(UseCaseLog log)
 		{
-			_connection.Query("AddUseCaseLog",
-								new { log.UseCaseName, log.Username, Data = JsonConvert.SerializeObject(log.UseCaseData), ExecutedAt = DateTime.UtcNow },
-								commandType: CommandType.StoredProcedure);
+			_connection.Execute(@"
+				INSERT INTO UseCaseLogs (UseCaseName, Username, UseCaseData, ExecutedAt)
+				VALUES (@UseCaseName, @Username, @Data, @ExecutedAt)",
+				new
+				{
+					log.UseCaseName,
+					log.Username,
+					Data = JsonConvert.SerializeObject(log.UseCaseData),
+					ExecutedAt = DateTime.UtcNow
+				});
 		}
 	}
 }

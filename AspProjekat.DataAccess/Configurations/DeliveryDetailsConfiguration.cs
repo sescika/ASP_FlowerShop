@@ -20,7 +20,7 @@ namespace AspProjekat.DataAccess.Configurations
 			builder.Property(x => x.DeliveryStatus).IsRequired().HasMaxLength(75).HasDefaultValue("pending");
 			builder.Property(x => x.DeliveryZipCode).IsRequired();
 
-			builder.HasOne(x => x.Order).WithOne(x => x.DeliveryDetails).OnDelete(DeleteBehavior.Restrict);
+			builder.HasOne(x => x.Order).WithOne(x => x.DeliveryDetails).OnDelete(DeleteBehavior.Cascade);
 		}
 	}
 }

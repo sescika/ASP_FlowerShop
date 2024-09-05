@@ -25,7 +25,7 @@ namespace AspProjekat.API.Controllers
 			_ctx = ctx;
 		}
 		//GET
-		//[Authorize]
+		[Authorize]
 		[HttpGet]
 		public IActionResult Get([FromQuery] CustomerSearch search, [FromServices] IGetCustomersQuery query)
 		{
@@ -33,7 +33,7 @@ namespace AspProjekat.API.Controllers
 		}
 
 		//POST
-		//[Authorize]
+		[Authorize]
 		[HttpPost]
 		public IActionResult Post([FromServices] IRegisterCustomerCommand command, [FromBody] RegisterCustomerDto data)
 		{
