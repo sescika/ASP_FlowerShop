@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AspProjekat.DataAccess.Migrations
 {
     [DbContext(typeof(FlowershopContext))]
-    [Migration("20240905140053_Initial")]
+    [Migration("20240918105913_Initial")]
     partial class Initial
     {
         /// <inheritdoc />

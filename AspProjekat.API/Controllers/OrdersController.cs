@@ -25,7 +25,7 @@ namespace AspProjekat.API.Controllers
 		}
 
 		//GET 
-		[Authorize]
+		//[Authorize]
 		[HttpGet]
 		public IActionResult Get([FromQuery] OrderSearch search, [FromServices] IGetOrdersQuery query)
 		{

@@ -112,7 +112,7 @@ namespace AspProjekat.DataAccess
 					Address = "User Address",
 					City = "User City",
 					Email = "user@gmail.com",
-					Password = BCrypt.Net.BCrypt.HashPassword("test123"),
+					Password = BCrypt.Net.BCrypt.HashPassword("test1234"),
 					State = "User state",
 					UseCases = (ICollection<UseCase>)UseCases,
 					Username = "user.username"
@@ -127,7 +127,7 @@ namespace AspProjekat.DataAccess
 				.RuleFor(c => c.City, f => f.Address.City())
 				.RuleFor(c => c.State, f => f.Address.State())
 				.RuleFor(c => c.ZipCode, f => f.Address.ZipCode())
-				.RuleFor(c => c.Password, BCrypt.Net.BCrypt.HashString("test123"));
+				.RuleFor(c => c.Password, BCrypt.Net.BCrypt.HashString("test1234"));
 				var customers = customerFaker.Generate(75);
 				customers.Add(c1);
 				context.Customers.AddRange(customers);
